@@ -113,17 +113,15 @@ class: inverse, center, middle
   
   * 要求对法律进行经验性科学研究
 
-* **行为主义**  
+* **行为主义**  (C.Herman.Pritchett)
 
-  * 《罗斯福法院》(C.Herman.Pritchett)
+  * 《罗斯福法院》
 
-* **心理学**  （Glendon Schubert） 
+* **心理学**  (Glendon Schubert) 
 
   * 案件和法官的价值取向都可以从意识形态的角度加以量化
 
-* **经济学**
-  
-  * （ David Rohde；Harold Spaeth）
+* **经济学**  (David Rohde；Harold Spaeth)
   
   * 裁决与具体的目的、规则、环境有关
   
@@ -260,9 +258,7 @@ class: inverse, center, middle
 ****
 裁决～事实+态度
 
-* 裁决～态度：预测正确率=70%
-
-* 裁决～态度+事实：预测正确率=71%
+* 裁决～态度：预测正确率=70%；裁决～态度+事实：预测正确率=71%
 
 ---
 ###模型检验：分权模型
