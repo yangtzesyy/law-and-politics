@@ -12,7 +12,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: "16:9"
-    self_contained: true
+    self_contained: false
 ---
 ```{r echo=F,include=F,warning=F}
 if(!require(pacman)) install.packages("pacman"); library(pacman)
@@ -173,7 +173,7 @@ tab_model(fit)
 ]
 
 ---
-### 稳健型检验：PSM
+### 稳健型检验：PSM 
 
 ```{r echo=F,warning=FALSE}
 prs_df %>%
@@ -184,6 +184,8 @@ prs_df %>%
   xlab("PS") +
   theme_bw(base_family = "Heiti SC Light")
 ```
+
+
 
 
   
