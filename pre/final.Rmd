@@ -1,0 +1,194 @@
+---
+title: "疫情期间的司法治理"
+subtitle: "——以「诈骗罪」的量刑标准与审判结果为例"
+author: "石宇洋"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output:
+  xaringan::moon_reader:
+    css: [xaringan-themer.css, zh-CN.css]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+    self_contained: true
+---
+```{r echo=F,include=F,warning=F}
+if(!require(pacman)) install.packages("pacman"); library(pacman)
+p_load(readxl,tidyverse,xaringanthemer,car,MatchIt,ggplot2,knitr,vcd,sjPlot)
+load("~/Rcourse/law-and-politics/pre/final.RData")
+style_mono_accent(base_color = "#43418A")
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+knitr::opts_chunk$set(
+  fig.showtext = TRUE,
+  fig.width = 16, 
+  fig.height = 8, 
+  dpi = 300,
+  echo=FALSE,warning=F
+)
+```
+
+### 目录
+
+1. 背景介绍
+
+1. 文献综述与研究假设
+
+1. 模型设定与数据分析
+
+1. 讨论
+
+---
+class: inverse, left, middle
+
+# 背景介绍
+
+---
+
+
+---
+class: inverse, left, middle
+
+# 文献综述与研究假设
+
+---
+
+
+
+---
+class: inverse, left, middle
+
+# 模型设定与数据分析
+
+---
+### 模型设定与数据分析：数据来源
+
+N=210，2017-11-07至2020-11-03诈骗案，其中84条与疫情有关
+
+```{r echo=F}
+names(allcases)
+```
+
+---
+
+
+### 模型设定与数据分析：描述性统计分析
+
+```{r echo=F,warning=F}
+ggplot(data=allcases)+
+  geom_boxplot(aes(x=诈骗数额,color=疫情相关))+
+  ggtitle("诈骗金额分布")+
+  theme_bw(base_family = "Heiti SC Light")+
+  theme(axis.text.y = element_blank())
+```
+
+---
+
+```{r echo=FALSE,warning=F}
+ggplot(data=less)+
+  geom_boxplot(aes(x=诈骗数额,color=疫情相关))+
+  ggtitle("诈骗金额分布（<1724600）")+
+  theme_bw(base_family = "Heiti SC Light")+
+  theme(axis.text.y = element_blank())
+```
+
+---
+### 刑期
+
+```{r echo=FALSE,warning=F}
+ggplot(data=allcases)+
+  geom_boxplot(aes(y=刑期,color=疫情相关))+
+  ggtitle("刑期分布（月）")+
+  theme_bw(base_family = "Heiti SC Light")+
+  theme(axis.text.x = element_blank())
+```
+
+---
+### 罚金
+
+```{r }
+ggplot(data=allcases)+
+  geom_boxplot(aes(y=罚金,color=疫情相关))+
+  ggtitle("罚金分布")+
+  theme_bw(base_family = "Heiti SC Light")+
+  theme(axis.text.x = element_blank())
+```
+
+---
+### 从重：电信网络诈骗
+
+疫情相关：84件
+
+* 其中：电信网络诈骗：64件，
+
+疫情无关：126件
+
+* 其中：电信网络诈骗：64件
+
+X-squared = 12.612, df = 1, p-value = 0.0003832
+
+---
+### 模型设定
+
+\begin{align}
+\text{刑期} \sim &\text{有无前科+疫情相关+从重：电信网络诈骗+从轻：非主犯、获利少+}\\ 
+\\ 
+&\text{从轻：被害人谅解+从轻：自首+从轻：自愿认罪认罚+诈骗数额_超出部分+}\\ 
+\\ 
+&\text{诈骗数额_分类+退赃_退多少}
+\end{align}
+
+.pull-left[
+诈骗数额_分类
+ * 小于3000：无
+ * 3000到30000: 数额较大
+ * 30000到500000：数额巨大
+ * 500000以上：数额特别巨大
+]
+ 
+.pull-right[
+诈骗数额_超出部分 = 诈骗数额-分类值
+  * 如诈骗5000元，则诈骗数额_超出部分为2000元
+  
+退赃_退多少=退赃数/诈骗数额 or 退赃数/非法所得
+  * 当诈骗数额=非法所得时，两者一致
+]
+  
+---
+.left-column[ 
+### 拟合结果
+]
+
+.right-column[
+```{r}
+tab_model(fit)
+```
+]
+
+---
+### 稳健型检验：PSM
+
+```{r echo=F,warning=FALSE}
+prs_df %>%
+  mutate(疫情相关 = ifelse(疫情相关 == T, labs[1], labs[2])) %>%
+  ggplot(aes(x = pr_score)) +
+  geom_histogram(color = "white",binwidth = 0.05) +
+  facet_wrap(~疫情相关) +
+  xlab("PS") +
+  theme_bw(base_family = "Heiti SC Light")
+```
+
+
+  
+
+
+
+
+
